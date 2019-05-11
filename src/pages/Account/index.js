@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 
-class LoginPage extends Component {
+class AccountPage extends Component {
   render() {
     return (
-      <div className='notes'>
-        <NavBar history={this.props.history} />
-        This is the Notes Page
+      <div className='account'>
+        <NavBar history={this.props.history}/>
+        Account Page
       </div>
     );
   }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(AccountPage);
