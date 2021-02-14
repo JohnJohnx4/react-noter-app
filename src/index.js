@@ -1,17 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Fade } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import Layout from './layout/Layout';
+import LoginPage from './pages/Login';
+import NotesPage from './pages/Notes';
+import ProfilePage from './pages/Profile';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Fade in={true}>
+        <Route exact path='/' component={LoginPage} />
+      </Fade>
+      <Fade in={true}>
+        <Route path='/notes'>
+          <Layout>
+            <NotesPage />
+          </Layout>
+        </Route>
+      </Fade>
+      <Fade in={true}>
+        <Route path='/profile'>
+          <Layout>
+            <ProfilePage />
+          </Layout>
+        </Route>
+      </Fade>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
