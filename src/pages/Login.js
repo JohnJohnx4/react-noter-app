@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -13,7 +13,7 @@ import {
   Input,
 } from 'reactstrap';
 
-import { register, login } from '../actions';
+import { register, login, ping } from '../actions';
 
 const LoginPage = (props) => {
   const [registerState, setRegisterState] = useState(false);
@@ -26,7 +26,11 @@ const LoginPage = (props) => {
   const handleSubmit = () => {
     if (registerState) register(emailString, passwordString, props.history);
     else login(emailString, passwordString, props.history);
-  }
+  };
+
+  useEffect(() => {
+    ping();
+  }, []);
 
   return (
     <Container className='mt-5'>
@@ -69,7 +73,9 @@ const LoginPage = (props) => {
                   </FormGroup>
                 )}
                 <FormGroup>
-                  <Button onClick={handleSubmit}>{registerState ? 'Register' : 'Log In'}</Button>
+                  <Button onClick={handleSubmit}>
+                    {registerState ? 'Register' : 'Log In'}
+                  </Button>
                 </FormGroup>
                 {registerState ? (
                   <FormGroup>

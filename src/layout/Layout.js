@@ -23,6 +23,9 @@ const Layout = (props) => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className='mr-auto' navbar>
               <NavItem>
+                <NavLink href='/notes/'>Home</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href='/profile/'>Profile</NavLink>
               </NavItem>
             </Nav>
