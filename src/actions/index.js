@@ -39,9 +39,9 @@ export const login = (email, password, history) => {
 // ==== NOTES actions ====
 
 export const fetchNotes = () => {
-  axios
+  return axios
     .get(`${API_ENDPOINT}/api/notes`)
-    .then((notes) => {})
+    .then((notes) => notes)
     .catch((err) => console.log(err));
 };
 
