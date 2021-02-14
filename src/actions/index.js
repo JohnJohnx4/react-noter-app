@@ -50,9 +50,7 @@ export const createNote = (title, content, history) => {
   const note = { title, content, user };
   axios
     .post(`${API_ENDPOINT}/api/notes`, note)
-    .then((res) => {
-      history.push('/notes');
-    })
+    .then((res) => {})
     .catch((err) => {
       if (err) alert(err);
     });
