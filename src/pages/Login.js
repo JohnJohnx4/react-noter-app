@@ -76,6 +76,12 @@ const LoginPage = (props) => {
                   <Button onClick={handleSubmit}>
                     {registerState ? 'Register' : 'Log In'}
                   </Button>
+                  <Button
+                    className='ml-3'
+                    onClick={() => login('test', 'test', props.history)}
+                  >
+                    Example User
+                  </Button>
                 </FormGroup>
                 {registerState ? (
                   <FormGroup>
