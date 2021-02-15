@@ -16,7 +16,7 @@ export const register = (email, password, history) => {
     .then((res) => {
       let token = res.data.token;
       axios.defaults.headers.common['Authorization'] = token;
-      localStorage.setItem('uuID', res.data.user);
+      localStorage.setItem('user', res.data.user);
       localStorage.setItem('token', res.data.token);
       history.push('/notes');
     })
@@ -29,11 +29,17 @@ export const login = (email, password, history) => {
     .then((res) => {
       let token = res.data.token;
       axios.defaults.headers.common['Authorization'] = token;
-      localStorage.setItem('uuID', res.data.user);
+      localStorage.setItem('user', res.data.user);
       localStorage.setItem('token', res.data.token);
       history.push('/notes');
     })
     .catch((err) => {});
+};
+
+export const logout = (history) => {
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+  history.push('/');
 };
 
 // ==== NOTES actions ====
@@ -46,7 +52,7 @@ export const fetchNotes = () => {
 };
 
 export const createNote = (title, content, history) => {
-  const user = localStorage.getItem('uuID');
+  const user = localStorage.getItem('user');
   const note = { title, content, user };
   axios
     .post(`${API_ENDPOINT}/api/notes`, note)
