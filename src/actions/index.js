@@ -51,28 +51,34 @@ export const fetchNotes = () => {
     .catch((err) => console.log(err));
 };
 
-export const createNote = (title, content, history) => {
+export const createNote = (title, content, cb) => {
   const user = localStorage.getItem('user');
   const note = { title, content, user };
   axios
     .post(`${API_ENDPOINT}/api/notes`, note)
-    .then((res) => {})
+    .then((res) => {
+      cb();
+    })
     .catch((err) => {
       if (err) alert(err);
     });
 };
 
-export const deleteNote = (id) => {
+export const deleteNote = (id, cb) => {
   axios
     .delete(`${API_ENDPOINT}/api/notes/${id}`)
-    .then((deletion) => {})
+    .then((deletion) => {
+      cb();
+    })
     .catch((err) => {});
 };
 
-export const updateNote = (updates) => {
+export const updateNote = (updates, cb) => {
   const { id, title, content } = updates;
   axios
     .put(`${API_ENDPOINT}/api/notes/${id}`, { title, content })
-    .then((update) => {})
+    .then((update) => {
+      cb();
+    })
     .catch((err) => {});
 };
