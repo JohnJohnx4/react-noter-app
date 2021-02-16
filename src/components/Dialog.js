@@ -17,17 +17,43 @@ export default function FormDialog(props) {
   const [content, setContent] = useState(props.content);
   const history = useHistory();
 
-  const handleCreateNote = (notes) => {
-    const createNoteCb = () => {
-      setOpen(!open);
-      props.setRefetch()
+  const handleCreateNote = () => {
+    const createNoteCb = (id, newTitle, newContent) => {
+      handleClose();
+
       setTitle('');
       setContent('');
+      if (props.editNote) {
+        const editIndex = props.notes
+          .map((el) => el._id)
+          .indexOf(props.note_id);
+        let x = [...props.notes];
+        x.splice(editIndex, 1, {
+          _id: id,
+          title: newTitle,
+          content: newContent,
+          created: dayjs(),
+          last_edit: { date: dayjs() },
+        });
+        props.setNotes(x);
+        props.closeMenu();
+      } else {
+        props.setNotes(() => [
+          ...props.notes,
+          {
+            _id: id,
+            title: newTitle,
+            content: newContent,
+            created: dayjs(),
+            last_edit: { date: dayjs() },
+          },
+        ]);
+      }
     };
 
-    // not updating for edit note for some reason, should refresh
-    if (props.isMenuItem)
-      updateNote({ id: props.note_id, title, content }, createNoteCb);
+    if (props.editNote) {
+      updateNote({ id: props.note_id, title, content }, () => createNoteCb(props.note_id, title, content));
+    }
     else createNote(title, content, createNoteCb);
   };
 
@@ -41,7 +67,7 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      {props.isMenuItem ? (
+      {props.editNote ? (
         <MenuItem onClick={handleClickOpen}>Edit</MenuItem>
       ) : (
         <Button variant='contained' color='primary' onClick={handleClickOpen}>
@@ -54,7 +80,7 @@ export default function FormDialog(props) {
         aria-labelledby='form-dialog-title'
       >
         <DialogTitle id='form-dialog-title'>
-          {props.isMenuItem ? 'Edit Note' : 'Create a New Note'}
+          {props.editNote ? 'Edit Note' : 'Create a New Note'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -85,7 +111,7 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={() => handleCreateNote(props.notes)} color='primary'>
+          <Button onClick={() => handleCreateNote()} color='primary'>
             Submit
           </Button>
         </DialogActions>

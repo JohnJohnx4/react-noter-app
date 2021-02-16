@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { deleteNote } from '../actions';
 import NoteDialog from '../components/Dialog';
-
+import AlertDialog from '../components/AlertDialog';
 dayjs.extend(relativeTime);
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NoteCardMenu = ({ note, isOpen, closeMenu, anchor, setRefetch }) => (
+const NoteCardMenu = ({ note, isOpen, closeMenu, anchor, notes, setNotes }) => (
   <Menu
     id='notecard=menu'
     anchorEl={anchor}
@@ -60,12 +60,26 @@ const NoteCardMenu = ({ note, isOpen, closeMenu, anchor, setRefetch }) => (
     open={isOpen}
     onClose={closeMenu}
   >
-    <NoteDialog isMenuItem={true} note_id={note._id} title={note.title} content={note.content} setRefetch={setRefetch}/>
-    <MenuItem onClick={() => deleteNote(note._id)}>Delete</MenuItem>
+    <NoteDialog
+      editNote={true}
+      note_id={note._id}
+      title={note.title}
+      content={note.content}
+      notes={notes}
+      setNotes={setNotes}
+      closeMenu={closeMenu}
+    />
+    <AlertDialog
+      deleteNote={deleteNote}
+      note_id={note._id}
+      notes={notes}
+      setNotes={setNotes}
+      closeMenu={closeMenu}
+    />
   </Menu>
 );
 
-export default function NoteCard({ note }) {
+export default function NoteCard({ note, notes, setNotes }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -98,6 +112,8 @@ export default function NoteCard({ note }) {
                 isOpen={open}
                 closeMenu={handleClose}
                 anchor={anchorEl}
+                notes={notes}
+                setNotes={setNotes}
               />
             </>
           }

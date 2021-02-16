@@ -45,18 +45,19 @@ const useStyles = makeStyles((theme) => ({
 export default function NotesPage(props) {
   const classes = useStyles();
   const [notes, setNotes] = useState([]);
-  const [refetch, setRefetch] = useState(0);
 
   useEffect(() => {
     fetchNotes().then((res) => setNotes(res.data));
-  }, [refetch]);
+    console.log('fetching');
+  }, []);
+
+  const getNotes = () => {};
 
   return (
     <React.Fragment>
       <CssBaseline />
 
       <main>
-        {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth='sm'>
             <Typography
@@ -74,17 +75,23 @@ export default function NotesPage(props) {
               color='textSecondary'
               paragraph
             >
-              Here are all the notes you have created!
+              Here are all of your notes!
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify='center'>
                 <Grid item>
-                  <NoteDialog title={''} content={''} setRefetch={setRefetch}/>
+                  <NoteDialog
+                    editNote={false}
+                    title={''}
+                    content={''}
+                    notes={notes}
+                    setNotes={setNotes}
+                  />
                 </Grid>
                 <Grid item>
-                  <Button variant='outlined' color='primary'>
+                  {/* <Button variant='outlined' color='primary'>
                     Secondary action
-                  </Button>
+                  </Button> */}
                 </Grid>
               </Grid>
             </div>
@@ -94,7 +101,7 @@ export default function NotesPage(props) {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {notes.map((note) => (
-              <NoteCard setRefetch={setRefetch} note={note} />
+              <NoteCard note={note} notes={notes} setNotes={setNotes} />
             ))}
           </Grid>
         </Container>

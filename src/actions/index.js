@@ -57,19 +57,17 @@ export const createNote = (title, content, cb) => {
   axios
     .post(`${API_ENDPOINT}/api/notes`, note)
     .then((res) => {
-      cb();
+      cb(res.data.success, title, content);
     })
     .catch((err) => {
       if (err) alert(err);
     });
 };
 
-export const deleteNote = (id, cb) => {
+export const deleteNote = (id) => {
   axios
     .delete(`${API_ENDPOINT}/api/notes/${id}`)
-    .then((deletion) => {
-      cb();
-    })
+    .then((deletion) => {})
     .catch((err) => {});
 };
 
