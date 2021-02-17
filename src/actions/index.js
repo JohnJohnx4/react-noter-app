@@ -45,8 +45,9 @@ export const logout = (history) => {
 // ==== NOTES actions ====
 
 export const fetchNotes = () => {
+  const user = localStorage.getItem('user');
   return axios
-    .get(`${API_ENDPOINT}/api/notes`)
+    .get(`${API_ENDPOINT}/api/notes/user/${user}`)
     .then((notes) => notes)
     .catch((err) => console.log(err));
 };
