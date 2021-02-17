@@ -147,7 +147,7 @@ export default function NoteCard({ note, notes, setNotes }) {
             <Typography paragraph>{note.content}</Typography>
           </Collapse>
 
-          <Typography color='textSecondary'>adjective</Typography>
+          <Typography color='textSecondary'>Created by you</Typography>
         </CardContent>
 
         <IconButton
