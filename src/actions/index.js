@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { decode } from 'jsonwebtoken';
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 // axios.defaults.withCredentials = true;
 
@@ -7,6 +6,14 @@ export const ping = () => {
   axios
     .get(`${API_ENDPOINT}/`)
     .then(() => console.log('server ping'))
+    .catch((err) => console.log(err));
+};
+
+export const getUser = () => {
+  const user = localStorage.getItem('user');
+  return axios
+    .get(`${API_ENDPOINT}/api/users/${user}`)
+    .then((res) => res)
     .catch((err) => console.log(err));
 };
 
