@@ -13,10 +13,11 @@ export const ping = () => {
 
 export const getUser = () => {
   const user = localStorage.getItem('user');
-  return axios
-    .get(`${API_ENDPOINT}/api/users/${user}`)
-    .then((res) => res)
-    .catch((err) => console.log(err));
+  // return axios
+  //   .get(`${API_ENDPOINT}/api/users/${user}`)
+  //   .then((res) => res)
+  //   .catch((err) => console.log(err));
+  return user;
 };
 
 export const register = (email, password, history) => {
