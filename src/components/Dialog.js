@@ -21,43 +21,35 @@ export default function FormDialog(props) {
     const createNoteCb = (id, newTitle, newContent) => {
       handleClose();
 
-      setTitle('');
-      setContent('');
-      if (props.editNote) {
-        const editIndex = props.notes
-          .map((el) => el._id)
-          .indexOf(props.note_id);
-        let x = [...props.notes];
-        x.splice(editIndex, 1, {
+      props.setNotes(() => [
+        ...props.notes,
+        {
           _id: id,
           title: newTitle,
           content: newContent,
-          created: dayjs(),
-          last_edit: { date: dayjs() },
-        });
-        props.setNotes(x);
-        props.closeMenu();
-      } else {
-        props.setNotes(() => [
-          ...props.notes,
-          {
-            _id: id,
-            title: newTitle,
-            content: newContent,
-            created: dayjs(),
-            last_edit: { date: dayjs() },
-          },
-        ]);
-      }
+          created: new Date(),
+          last_edit: { date: new Date() },
+        },
+      ]);
     };
 
     if (props.editNote) {
-      updateNote({ id: props.note_id, title, content }, () => createNoteCb(props.note_id, title, content));
+      props.setNotes(
+        updateNote({ id: props.note_id, title, content }, () =>
+          createNoteCb(props.note_id, title, content)
+        )
+      );
+    } else {
+      props.setNotes(createNote(title, content, createNoteCb));
+      setOpen(false);
     }
-    else createNote(title, content, createNoteCb);
   };
 
   const handleClickOpen = () => {
+    if (!props.editNote) {
+      setTitle('');
+      setContent('');
+    }
     setOpen(true);
   };
 

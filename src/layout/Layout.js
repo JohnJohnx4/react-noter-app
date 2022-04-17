@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-} from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import NoteIcon from '@material-ui/icons/Note';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -18,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import { logout } from '../actions';
-import { useHistory } from 'react-router-dom';
+import NoteIcon from '../assets/images/noterlogo.png';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -60,7 +51,7 @@ const Layout = (props) => {
               className={classes.icon}
               onClick={() => history.push('/notes')}
             >
-              <NoteIcon />
+              <img src={NoteIcon} style={{ width: '24px' }} />
             </IconButton>
             <Typography
               className={classes.title}
@@ -95,13 +86,18 @@ const Layout = (props) => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={() => history.push('/notes')}>
-                  Home
-                </MenuItem>
+                <MenuItem onClick={() => history.push('/notes')}>Home</MenuItem>
                 <MenuItem onClick={() => history.push('/profile')}>
                   Profile
                 </MenuItem>
-                <MenuItem onClick={() => logout(history)}>Logout</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    props.setAuthenticated("")
+                    logout(history);
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </div>
           </Toolbar>

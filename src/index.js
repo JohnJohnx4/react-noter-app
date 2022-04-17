@@ -1,32 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { ThemeProvider, createTheme } from '@material-ui/core';
+
 import './index.css';
+import App from './App';
 
-import Layout from './layout/Layout';
-import LoginPage from './pages/Login';
-import NotesPage from './pages/Notes';
-import ProfilePage from './pages/Profile';
-
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Poppins',
+      'Roboto',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Route exact path='/' component={LoginPage} />
-      <Route path='/notes'>
-        <Layout>
-          <NotesPage />
-        </Layout>
-      </Route>
-      <Route path='/profile'>
-        <Layout>
-          <ProfilePage />
-        </Layout>
-      </Route>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
