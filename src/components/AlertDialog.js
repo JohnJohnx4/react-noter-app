@@ -19,11 +19,7 @@ export default function AlertDialog(props) {
   };
 
   const handleAccept = () => {
-    const editIndex = props.notes.map((el) => el._id).indexOf(props.note_id);
-    let x = [...props.notes];
-    x.splice(editIndex, 1);
-    props.setNotes(x);
-    props.deleteNote(props.note_id);
+    props.setNotes(props.deleteNote(props.note_id));
     props.closeMenu();
     handleClose();
   };
@@ -31,7 +27,7 @@ export default function AlertDialog(props) {
   return (
     <>
       <MenuItem variant='outlined' color='primary' onClick={handleClickOpen}>
-        Open alert dialog
+        Delete Note
       </MenuItem>
       <Dialog
         open={open}
@@ -39,13 +35,10 @@ export default function AlertDialog(props) {
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id='alert-dialog-title'>
-          {"Use Google's location service?"}
-        </DialogTitle>
+        <DialogTitle id='alert-dialog-title'>{'Deleting note'}</DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            Are you sure you want to delete this note?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

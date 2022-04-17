@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   collapsedText: {
-    marginBottom: '16px'
-  }
+    marginBottom: '16px',
+  },
 }));
 
 const NoteCardMenu = ({ note, isOpen, closeMenu, anchor, notes, setNotes }) => (
@@ -93,9 +93,9 @@ const NoteCardMenu = ({ note, isOpen, closeMenu, anchor, notes, setNotes }) => (
 
 export default function NoteCard({ note, notes, setNotes }) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expanded, setExpanded] = React.useState(false);
-  console.log(note)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -118,7 +118,7 @@ export default function NoteCard({ note, notes, setNotes }) {
 
   return (
     <Grid item key={note._id} xs={12} sm={6} md={4}>
-      <Card className={classes.card} elevation={5} >
+      <Card className={classes.card} elevation={5}>
         <CardHeader
           action={
             <>
@@ -141,13 +141,15 @@ export default function NoteCard({ note, notes, setNotes }) {
 
         <CardContent className={classes.cardContent}>
           {!expanded && note.content.length > 120 && (
-            <Typography className={classes.collapsedText}>{note.content.substring(0, 120) + '...'}</Typography>
+            <Typography className={classes.collapsedText}>
+              {note.content.substring(0, 120) + '...'}
+            </Typography>
           )}
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <Typography paragraph>{note.content}</Typography>
           </Collapse>
 
-          <Typography color='textSecondary'>adjective</Typography>
+          {/* <Typography color='textSecondary'>adjective</Typography> */}
         </CardContent>
 
         <IconButton

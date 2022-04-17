@@ -47,8 +47,7 @@ export default function NotesPage(props) {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    fetchNotes().then((res) => setNotes(res.data));
-    console.log('fetching');
+    setNotes(fetchNotes());
   }, []);
 
   const getNotes = () => {};
@@ -78,7 +77,7 @@ export default function NotesPage(props) {
               Here are all of your notes!
             </Typography>
             <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify='center'>
+              <Grid container spacing={2} justifyContent='center'>
                 <Grid item>
                   <NoteDialog
                     editNote={false}
@@ -100,8 +99,8 @@ export default function NotesPage(props) {
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {notes.map((note) => (
-              <NoteCard note={note} notes={notes} setNotes={setNotes} />
+            {notes.map((note, i) => (
+              <NoteCard key={note.title + i} note={note} notes={notes} setNotes={setNotes} />
             ))}
           </Grid>
         </Container>
