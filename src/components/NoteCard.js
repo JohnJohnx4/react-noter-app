@@ -36,8 +36,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
+    minHeight: '240px',
     display: 'flex',
     flexDirection: 'column',
+    padding: theme.spacing(2),
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -117,8 +119,8 @@ export default function NoteCard({ note, notes, setNotes }) {
   };
 
   return (
-    <Grid item key={note._id} xs={12} sm={6} md={4}>
-      <Card className={classes.card} elevation={5}>
+    <Grid item key={note._id} xs={12} md={6} lg={4} xl={3}>
+      <Card className={classes.card} elevation={1}>
         <CardHeader
           action={
             <>
@@ -135,33 +137,55 @@ export default function NoteCard({ note, notes, setNotes }) {
               />
             </>
           }
-          title={note.title}
-          subheader={getDisplayDate()}
+          title={
+            <Typography style={{ fontWeight: 'bold', fontSize: '20px' }}>
+              {note.title}
+            </Typography>
+          }
+          subheader={
+            <Typography style={{ fontSize: '12px' }}>
+              {getDisplayDate()}
+            </Typography>
+          }
         />
 
         <CardContent className={classes.cardContent}>
-          {!expanded && note.content.length > 120 && (
+          {!expanded && note.content.length > 32 && (
             <Typography className={classes.collapsedText}>
-              {note.content.substring(0, 120) + '...'}
+              {note.content.substring(0, 32) + '...'}
             </Typography>
           )}
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <Typography paragraph>{note.content}</Typography>
-          </Collapse>
-
-          {/* <Typography color='textSecondary'>adjective</Typography> */}
+          {note.content.length > 32 ? (
+            <Collapse in={expanded} timeout='auto' unmountOnExit>
+              <Typography
+                style={{ fontSize: '16px' }}
+                paragraph
+              >
+                {note.content}
+              </Typography>
+            </Collapse>
+          ) : (
+            <Typography
+              style={{ fontSize: '16px' }}
+              paragraph
+            >
+              {note.content}
+            </Typography>
+          )}
         </CardContent>
 
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        {note.content.length > 32 && (
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label='show more'
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        )}
       </Card>
     </Grid>
   );

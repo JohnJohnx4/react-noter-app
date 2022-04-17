@@ -39,15 +39,17 @@ export default function FormDialog(props) {
           createNoteCb(props.note_id, title, content)
         )
       );
-    } else  {
+    } else {
       props.setNotes(createNote(title, content, createNoteCb));
       setOpen(false);
     }
   };
 
   const handleClickOpen = () => {
-    setTitle('');
-    setContent('');
+    if (!props.editNote) {
+      setTitle('');
+      setContent('');
+    }
     setOpen(true);
   };
 

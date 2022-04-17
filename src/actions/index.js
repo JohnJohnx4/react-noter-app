@@ -23,7 +23,7 @@ export const register = (email, password, history) => {
   //   })
   //   .catch((err) => {});
   localStorage.setItem('user', { user: email });
-  localStorage.setItem('token', 'test-toketestn-1234567890abcdef');
+  localStorage.setItem('token', 'test-token-1234567890abcdef');
   history.push('/notes');
 };
 
@@ -39,7 +39,7 @@ export const login = (email, password, history) => {
   //   })
   //   .catch((err) => {});
   localStorage.setItem('user', JSON.stringify({ user: email }));
-  localStorage.setItem('token', 'test-toketestn-1234567890abcdef');
+  localStorage.setItem('token', 'test-token-1234567890abcdef');
   history.push('/notes');
 };
 

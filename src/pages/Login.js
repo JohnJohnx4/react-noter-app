@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginPage(props) {
+  const classes = useStyles();
   const [registerState, setRegisterState] = useState(false);
   const [emailString, setEmailString] = useState('');
   const [passwordString, setPasswordString] = useState('');
@@ -44,12 +45,9 @@ export default function LoginPage(props) {
   const handleSubmit = () => {
     if (registerState) register(emailString, passwordString, props.history);
     else login(emailString, passwordString, props.history);
+    props.setAuthenticated("test-token-1234567890abcdef")
   };
 
-  useEffect(() => {
-    ping();
-  }, []);
-  const classes = useStyles();
 
   return (
     <Container component='main' maxWidth='xs'>
