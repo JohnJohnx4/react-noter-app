@@ -35,11 +35,11 @@ const App = () => {
           <NotesPage />
         </Layout>
       </Route>
-      <Route path='/profile'>
+      {/* <Route path='/profile'>
         <Layout setAuthenticated={setAuthenticated} >
           <ProfilePage />
         </Layout>
-      </Route>
+      </Route> */}
     </Router>
   );
 };

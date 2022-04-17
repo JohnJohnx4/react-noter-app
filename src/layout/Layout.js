@@ -87,9 +87,9 @@ const Layout = (props) => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={() => history.push('/notes')}>Home</MenuItem>
-                <MenuItem onClick={() => history.push('/profile')}>
+                {/* <MenuItem onClick={() => history.push('/profile')}>
                   Profile
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem
                   onClick={() => {
                     props.setAuthenticated("")
