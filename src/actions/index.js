@@ -31,7 +31,7 @@ export const register = (email, password, history) => {
   //     history.push('/notes');
   //   })
   //   .catch((err) => {});
-  localStorage.setItem('user', { user: email });
+  localStorage.setItem('user', JSON.stringify({ user: email }));
   localStorage.setItem('token', 'test-token-1234567890abcdef');
   history.push('/notes');
 };
